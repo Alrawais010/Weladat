@@ -1,0 +1,48 @@
+name: Build APK
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Fixed signing key (so updates install over old version and keep data)
+        run: |
+          mkdir -p ~/.android
+          echo "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" | base64 -d > ~/.android/debug.keystore
+      - name: Build Android project
+        run: |
+          REPO="${GITHUB_REPOSITORY#*/}"
+          NAME="$(tr -d '\r\n' < appname.txt 2>/dev/null || echo "$REPO")"
+          ID="com.alrawais010.$(echo "$REPO" | tr 'A-Z' 'a-z' | tr -cd 'a-z0-9')"
+          B="$RUNNER_TEMP/build"
+          mkdir -p "$B/www"
+          rsync -a --exclude '.git' --exclude '.github' ./ "$B/www/"
+          cd "$B"
+          npm init -y
+          npm i @capacitor/core@7 @capacitor/cli@7 @capacitor/android@7 @capacitor/filesystem@7 @capacitor/share@7
+          npx cap init "$NAME" "$ID" --web-dir www
+          npx cap add android
+          npx cap sync android
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+          cp app/build/outputs/apk/debug/app-debug.apk "$GITHUB_WORKSPACE/$REPO.apk"
+      - name: Publish APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          REPO="${GITHUB_REPOSITORY#*/}"
+          gh release delete apk-latest -y --cleanup-tag --repo "$GITHUB_REPOSITORY" || true
+          gh release create apk-latest "$REPO.apk" --repo "$GITHUB_REPOSITORY" --title "APK" --notes "أحدث نسخة APK"
