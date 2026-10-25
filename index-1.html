@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1f5f3a">
+<title>ولادات</title>
+<style>
+:root{color-scheme:light;--g:#1f5f3a;--g2:#e8f1ec;--red:#d32f2f;--blue:#1565c0;--bd:#d9ddd9;--mut:#6b736d;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#f6f7f5;color:#111;font-family:system-ui,"Segoe UI",Tahoma,sans-serif;font-size:16px}
+body{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+button{font:inherit;cursor:pointer}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fff;border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:5}
+.bar h1{margin:0;font-size:20px;color:var(--g)}
+.yr{display:flex;align-items:center;gap:6px}
+.yr button{width:36px;height:36px;border-radius:10px;border:1px solid var(--bd);background:#fff;font-size:18px}
+.yr b{min-width:56px;text-align:center;font-size:18px}
+.wrap{padding:12px;max-width:640px;margin:auto}
+.sum{background:var(--g);color:#fff;border-radius:16px;padding:12px;margin-bottom:14px}
+.sum .t{font-size:13px;opacity:.85;margin-bottom:8px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.stats div{background:rgba(255,255,255,.14);border-radius:10px;padding:6px 2px}
+.stats b{display:block;font-size:20px}
+.stats span{font-size:11.5px}
+.month{margin-bottom:16px}
+.mh{background:#fff;border:2px solid var(--g);border-radius:14px;padding:10px 12px}
+.mh .n{font-weight:700;font-size:18px;color:var(--g);margin-bottom:6px}
+.mh .stats div{background:var(--g2)}
+.mh .stats b{color:var(--g)}
+.mh .stats span{color:#333}
+.mh .stats .d b{color:var(--red)}
+.row{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--bd);border-radius:12px;padding:8px 10px;margin-top:6px}
+.day{width:30px;text-align:center;font-weight:700;color:var(--mut)}
+.ewe{min-width:44px;text-align:center;font-weight:800;font-size:19px;color:#000}
+.ewe.due{color:var(--red)}.ewe.done{color:var(--blue)}
+.kids{flex:1;display:flex;flex-wrap:wrap;gap:5px}
+.chip{border:1px solid var(--bd);background:#fff;border-radius:999px;padding:5px 10px;font-size:14px}
+.chip.M{background:#e3f0fb;border-color:#9cc4e8}.chip.F{background:#fde8f0;border-color:#eba3c0}
+.chip.dead{background:#eee;border-color:#bbb;color:#888;text-decoration:line-through}
+.ed{border:none;background:none;font-size:18px;color:var(--mut);padding:4px 6px}
+.empty{text-align:center;color:var(--mut);padding:40px 10px}
+.fab{position:fixed;left:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;border:none;background:var(--g);color:#fff;font-size:32px;box-shadow:0 4px 12px rgba(0,0,0,.3);z-index:8}
+.tabs{position:fixed;right:0;left:0;bottom:0;display:flex;background:#fff;border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px);z-index:7}
+.tabs button{flex:1;padding:14px 6px;border:none;background:none;font-size:16px;color:var(--mut);position:relative}
+.tabs button.on{color:var(--g);font-weight:700;box-shadow:inset 0 3px 0 var(--g)}
+.badge{background:var(--red);color:#fff;border-radius:999px;font-size:12px;padding:1px 7px;margin-inline-start:4px}
+.act{display:flex;gap:8px;margin-bottom:10px}
+.btn{flex:1;padding:12px;border-radius:12px;border:1px solid var(--g);background:#fff;color:var(--g);font-weight:700}
+.btn.p{background:var(--g);color:#fff}
+.btn.dg{border-color:var(--red);color:var(--red)}
+.btn:disabled{opacity:.4}
+.wr{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--bd);border-radius:12px;padding:10px;margin-top:6px}
+.wr input[type=checkbox]{width:24px;height:24px}
+.wr .i{flex:1;font-size:13px;color:var(--mut)}
+h3{margin:18px 0 4px;font-size:15px;color:var(--mut)}
+.foot{display:flex;gap:8px;margin-top:20px}
+.foot .btn{font-size:13px;padding:9px;font-weight:400}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;z-index:20}
+.ov.on{display:flex}
+.sheet{background:#fff;width:100%;max-width:640px;margin:auto;border-radius:20px 20px 0 0;padding:16px;max-height:92%;overflow:auto;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.sheet h2{margin:0 0 10px;font-size:18px;color:var(--g)}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+input[type=date],input[type=text]{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;font:inherit;background:#fff}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;padding:10px;border-radius:10px;border:1px solid var(--bd);background:#fff}
+.seg button.on{background:var(--g);border-color:var(--g);color:#fff}
+.kr{display:flex;gap:6px;margin-top:6px;align-items:center}
+.kr .seg{flex:1.2}.kr input{flex:1}
+.mc{background:#fff;border:2px solid var(--g);border-radius:16px;padding:14px;margin-bottom:12px;text-align:center}
+.mc h4{margin:0 0 4px;font-size:16px;color:var(--mut)}
+.mc .big{font-size:44px;font-weight:800;color:var(--g);line-height:1.1}
+.mc .big.neg{color:var(--red)}
+.mc .sub{font-size:13px;color:var(--mut);margin-top:4px}
+.mb{display:flex;gap:8px;margin:14px 0 6px}
+.mb .btn{font-size:17px;padding:14px 4px}
+.mr .ty{min-width:52px;font-weight:700;color:var(--g)}
+.mr .ty.sl{color:var(--red)}.mr .ty.en{color:var(--blue)}
+.mr .nn{font-weight:800;font-size:20px;min-width:34px;text-align:center}
+</style>
+</head>
+<body>
+<div class="bar"><h1>🐑 ولادات</h1><div class="yr"><button onclick="yr(1)">›</button><b id="yl"></b><button onclick="yr(-1)">‹</button></div></div>
+<div class="wrap" id="app"></div>
+<button class="fab" id="fab" onclick="openForm()">+</button>
+<div class="tabs"><button id="t1" class="on" onclick="setTab('home')">الولادات</button><button id="t2" onclick="setTab('wean')">الفطام<span class="badge" id="bd" style="display:none"></span></button><button id="t3" onclick="setTab('moves')">المتبقي</button></div>
+<div class="ov" id="ov" onclick="if(event.target===this)closeForm()"><div class="sheet" id="sheet"></div></div>
+<input type="file" id="imp" accept=".json" style="display:none" onchange="importData(this)">
+<script>
+const AR='٠١٢٣٤٥٦٧٨٩';
+const ar=s=>String(s).replace(/\d/g,d=>AR[d]);
+const en=s=>String(s).replace(/[٠-٩]/g,d=>AR.indexOf(d));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MN=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const KEY='wiladat_v1';
+let data=load(),year=new Date().getFullYear(),tab='home',form=null,sel=new Set();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}autoBackup()}
+const MK='wiladat_moves_v1';
+let moves=(()=>{try{return JSON.parse(localStorage.getItem(MK))||[]}catch(e){return[]}})(),mf=null;
+function saveM(){try{localStorage.setItem(MK,JSON.stringify(moves))}catch(e){}autoBackup()}
+const TY={sale:'بيع',slaughter:'ذبح',enter:'دخول'};
+function remain(y,skipId){
+ const s=stats(data.filter(r=>r.date.startsWith(y+'-')));
+ let sold=0,sl=0,en=0;
+ moves.forEach(m=>{if(m.id===skipId||!m.date.startsWith(y+'-'))return;if(m.type==='sale')sold+=m.n;else if(m.type==='slaughter')sl+=m.n;else en+=m.n});
+ return{m:s.m,f:s.f,sold,sl,en,remM:s.m-sold-sl,remF:s.f-en};
+}
+function movesPage(){
+ const r=remain(year);
+ let h=`<div class="mc"><h4>الذكور المتبقية</h4><div class="big ${r.remM<0?'neg':''}">${ar(r.remM)}</div><div class="sub">حية ${ar(r.m)} − بيع ${ar(r.sold)} − ذبح ${ar(r.sl)}</div></div>
+ <div class="mc"><h4>الإناث المتبقية</h4><div class="big ${r.remF<0?'neg':''}">${ar(r.remF)}</div><div class="sub">حية ${ar(r.f)} − دخول ${ar(r.en)}</div></div>
+ <div class="mb"><button class="btn" onclick="openMove('sale')">بيع</button><button class="btn dg" onclick="openMove('slaughter')">ذبح</button><button class="btn p" onclick="openMove('enter')">دخول</button></div>`;
+ const list=moves.filter(m=>m.date.startsWith(year+'-')).sort((a,b)=>b.date.localeCompare(a.date));
+ h+='<h3>سجل سنة '+ar(year)+'</h3>';
+ if(!list.length)h+='<div class="empty" style="padding:20px">لا توجد حركات</div>';
+ list.forEach(m=>{
+  const c=m.type==='slaughter'?'sl':m.type==='enter'?'en':'';
+  h+=`<div class="row mr"><div class="day" style="width:56px">${ar(+m.date.slice(8))}/${ar(+m.date.slice(5,7))}</div><div class="ty ${c}">${TY[m.type]}</div><div class="nn">${ar(m.n)}</div><div class="kids" style="font-size:13px;color:var(--mut)">${esc(m.note||'')}</div><button class="ed" onclick="openMove('${m.type}','${m.id}')">✎</button></div>`;
+ });
+ return h;
+}
+function openMove(type,id){
+ const m=id&&moves.find(x=>x.id===id);
+ mf=m?JSON.parse(JSON.stringify(m)):{id:null,date:today(),type:type,n:'',note:''};
+ drawMove();document.getElementById('ov').classList.add('on');
+}
+function msync(){if(!mf)return;mf.date=document.getElementById('md').value||mf.date;mf.n=document.getElementById('mn').value;mf.note=document.getElementById('mo').value}
+function mType(t){msync();mf.type=t;drawMove()}
+function drawMove(){
+ document.getElementById('sheet').innerHTML=`<h2>${mf.id?'تعديل':'تسجيل'} ${TY[mf.type]}</h2>
+ <label>النوع</label><div class="seg">${['sale','slaughter','enter'].map(t=>`<button class="${mf.type===t?'on':''}" onclick="mType('${t}')">${TY[t]}</button>`).join('')}</div>
+ <label>التاريخ</label><input type="date" id="md" value="${mf.date}">
+ <label>العدد ${mf.type==='enter'?'(إناث)':'(ذكور)'}</label><input type="text" id="mn" value="${esc(mf.n)}" inputmode="numeric" placeholder="مثال: ٣">
+ <label>ملاحظة (اختياري)</label><input type="text" id="mo" value="${esc(mf.note||'')}">
+ <div class="act" style="margin-top:16px"><button class="btn p" onclick="saveMove()">حفظ</button><button class="btn" onclick="closeMove()">إلغاء</button></div>`+
+ (mf.id?`<button class="btn dg" style="width:100%" onclick="delMove()">حذف</button>`:'');
+}
+function closeMove(){document.getElementById('ov').classList.remove('on');mf=null}
+function saveMove(){
+ msync();
+ const n=parseInt(en(mf.n.trim()),10);
+ if(!n||n<1){alert('اكتب العدد');return}
+ mf.n=n;
+ const y=mf.date.slice(0,4),r=remain(y,mf.id);
+ const left=mf.type==='enter'?r.remF:r.remM;
+ if(n>left&&!confirm('العدد أكبر من المتبقي ('+ar(Math.max(left,0))+'). حفظ على أي حال؟'))return;
+ if(mf.id){const i=moves.findIndex(x=>x.id===mf.id);moves[i]=mf}
+ else{mf.id='m'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);moves.push(mf)}
+ year=+y;saveM();closeMove();render();
+}
+function delMove(){if(!confirm('حذف هذا السجل؟'))return;moves=moves.filter(x=>x.id!==mf.id);saveM();closeMove();render()}
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const age=ds=>Math.floor((new Date(today()+'T00:00')-new Date(ds+'T00:00'))/864e5);
+const isDue=r=>!r.weaned&&r.kids.some(k=>!k.dead)&&age(r.date)>90;
+function stats(list){let t=0,m=0,f=0,d=0;list.forEach(r=>r.kids.forEach(k=>{t++;if(k.dead)d++;else if(k.s==='M')m++;else f++}));return{t,m,f,d}}
+function statsHtml(s){return `<div class="stats"><div><b>${ar(s.t)}</b><span>المواليد</span></div><div><b>${ar(s.m)}</b><span>ذكور حية</span></div><div><b>${ar(s.f)}</b><span>إناث حية</span></div><div class="d"><b>${ar(s.d)}</b><span>نفوق</span></div></div>`}
+function yr(n){year+=n;render()}
+function setTab(t){tab=t;render()}
+function render(){
+ document.getElementById('yl').textContent=ar(year);
+ document.getElementById('t1').className=tab==='home'?'on':'';
+ document.getElementById('t2').className=tab==='wean'?'on':'';
+ document.getElementById('t3').className=tab==='moves'?'on':'';
+ document.getElementById('fab').style.display=tab==='home'?'block':'none';
+ const due=data.filter(isDue).length,bd=document.getElementById('bd');
+ bd.style.display=due?'inline':'none';bd.textContent=ar(due);
+ document.getElementById('app').innerHTML=tab==='home'?home():tab==='wean'?wean():movesPage();
+}
+function home(){
+ const yl=data.filter(r=>r.date.startsWith(year+'-'));
+ let h=`<div class="sum"><div class="t">إجمالي سنة ${ar(year)}</div>${statsHtml(stats(yl))}</div>`;
+ if(!yl.length)h+='<div class="empty">لا توجد ولادات في هذه السنة<br>اضغط + لإضافة ولادة</div>';
+ for(let m=11;m>=0;m--){
+  const ml=yl.filter(r=>+r.date.slice(5,7)===m+1).sort((a,b)=>b.date.localeCompare(a.date));
+  if(!ml.length)continue;
+  h+=`<div class="month"><div class="mh"><div class="n">${MN[m]} ${ar(year)}</div>${statsHtml(stats(ml))}</div>`;
+  ml.forEach(r=>{
+   const cls=r.weaned?'done':isDue(r)?'due':'';
+   h+=`<div class="row"><div class="day">${ar(+r.date.slice(8))}</div><div class="ewe ${cls}">${esc(ar(r.ewe))}</div><div class="kids">`+
+   r.kids.map((k,i)=>`<button class="chip ${k.dead?'dead':k.s}" onclick="toggleDead('${r.id}',${i})">${k.s==='M'?'ذكر':'أنثى'}${k.n?' '+esc(ar(k.n)):''}${k.dead?' • ميت':''}</button>`).join('')+
+   `</div><button class="ed" onclick="openForm('${r.id}')">✎</button></div>`;
+  });
+  h+='</div>';
+ }
+ h+=`<div class="foot"><button class="btn" onclick="exportData()">حفظ نسخة</button><button class="btn" onclick="document.getElementById('imp').click()">استرداد نسخة</button></div>`;
+ return h;
+}
+function wean(){
+ const due=data.filter(isDue).sort((a,b)=>a.date.localeCompare(b.date));
+ sel=new Set([...sel].filter(id=>due.some(r=>r.id===id)));
+ let h=`<div class="act"><button class="btn" onclick="selAll()">${sel.size===due.length&&due.length?'إلغاء التحديد':'تحديد الكل'}</button><button class="btn p" onclick="doWean()" ${sel.size?'':'disabled'}>تم الفطم ${sel.size?'('+ar(sel.size)+')':''}</button></div>`;
+ h+=`<h3>أمهات حان فطام مواليدها (أكثر من ${ar(90)} يوم)</h3>`;
+ if(!due.length)h+='<div class="empty">لا توجد أمهات تحتاج فطام</div>';
+ due.forEach(r=>{
+  const live=r.kids.filter(k=>!k.dead).length;
+  h+=`<label class="wr" style="margin:6px 0 0;color:#111"><input type="checkbox" ${sel.has(r.id)?'checked':''} onchange="pick('${r.id}',this.checked)"><span class="ewe due">${esc(ar(r.ewe))}</span><span class="i">وُلد ${ar(+r.date.slice(8))} ${MN[+r.date.slice(5,7)-1]} ${ar(r.date.slice(0,4))} • العمر ${ar(age(r.date))} يوم • حي: ${ar(live)}</span></label>`;
+ });
+ const done=data.filter(r=>r.weaned).sort((a,b)=>b.date.localeCompare(a.date));
+ h+='<h3>تم فطامها</h3>';
+ if(!done.length)h+='<div class="empty" style="padding:14px">—</div>';
+ done.forEach(r=>{
+  h+=`<div class="wr"><span class="ewe done">${esc(ar(r.ewe))}</span><span class="i">${ar(+r.date.slice(8))} ${MN[+r.date.slice(5,7)-1]} ${ar(r.date.slice(0,4))}</span><button class="ed" onclick="unwean('${r.id}')">تراجع</button></div>`;
+ });
+ return h;
+}
+function pick(id,on){on?sel.add(id):sel.delete(id);render()}
+function selAll(){const due=data.filter(isDue);if(sel.size===due.length)sel.clear();else due.forEach(r=>sel.add(r.id));render()}
+function doWean(){if(!sel.size)return;data.forEach(r=>{if(sel.has(r.id))r.weaned=true});sel.clear();save();render()}
+function unwean(id){const r=data.find(x=>x.id===id);if(r){r.weaned=false;save();render()}}
+function toggleDead(id,i){
+ const r=data.find(x=>x.id===id),k=r.kids[i];
+ if(!confirm(k.dead?'إرجاع المولود إلى حي؟':'تحويل المولود إلى ميت؟'))return;
+ k.dead=!k.dead;save();render();
+}
+function openForm(id){
+ const r=id&&data.find(x=>x.id===id);
+ form=r?JSON.parse(JSON.stringify(r)):{id:null,date:today(),ewe:'',kids:[{s:'M',n:'',dead:false}],weaned:false};
+ drawForm();document.getElementById('ov').classList.add('on');
+}
+function closeForm(){document.getElementById('ov').classList.remove('on');form=null}
+function sync(){
+ if(!form)return;
+ form.date=document.getElementById('fd').value||form.date;
+ form.ewe=document.getElementById('fe').value;
+ form.kids.forEach((k,i)=>{k.n=document.getElementById('kn'+i).value});
+}
+function drawForm(){
+ const f=form;
+ document.getElementById('sheet').innerHTML=`<h2>${f.id?'تعديل ولادة':'ولادة جديدة'}</h2>
+ <label>التاريخ</label><input type="date" id="fd" value="${f.date}">
+ <label>رقم الشاة</label><input type="text" id="fe" value="${esc(f.ewe)}" inputmode="numeric" placeholder="مثال: ١٢">
+ <label>عدد المواليد</label><div class="seg">${[1,2,3,4].map(n=>`<button class="${f.kids.length===n?'on':''}" onclick="setCount(${n})">${ar(n)}</button>`).join('')}</div>
+ <label>المواليد</label>`+
+ f.kids.map((k,i)=>`<div class="kr"><div class="seg"><button class="${k.s==='M'?'on':''}" onclick="setSex(${i},'M')">ذكر</button><button class="${k.s==='F'?'on':''}" onclick="setSex(${i},'F')">أنثى</button></div><input type="text" id="kn${i}" value="${esc(k.n)}" inputmode="numeric" placeholder="رقمه (اختياري)"></div>`).join('')+
+ `<div class="act" style="margin-top:16px"><button class="btn p" onclick="saveForm()">حفظ</button><button class="btn" onclick="closeForm()">إلغاء</button></div>`+
+ (f.id?`<button class="btn dg" style="width:100%" onclick="delRec()">حذف الولادة</button>`:'');
+}
+function setCount(n){sync();while(form.kids.length<n)form.kids.push({s:'M',n:'',dead:false});form.kids.length=n;drawForm()}
+function setSex(i,s){sync();form.kids[i].s=s;drawForm()}
+function saveForm(){
+ sync();
+ if(!form.ewe.trim()){alert('اكتب رقم الشاة');return}
+ form.ewe=en(form.ewe.trim());form.kids.forEach(k=>k.n=en(k.n.trim()));
+ if(form.id){const i=data.findIndex(x=>x.id===form.id);data[i]=form}
+ else{form.id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);data.push(form)}
+ year=+form.date.slice(0,4);save();closeForm();render();
+}
+function delRec(){if(!confirm('حذف هذه الولادة نهائيًا؟'))return;data=data.filter(x=>x.id!==form.id);save();closeForm();render()}
+const isNative=()=>{const C=window.Capacitor;return !!(C&&C.isNativePlatform&&C.isNativePlatform())};
+async function writeDoc(name){
+ const F=window.Capacitor.Plugins.Filesystem;
+ await F.writeFile({path:'Wiladat/'+name,data:JSON.stringify({births:data,moves:moves}),directory:'DOCUMENTS',encoding:'utf8',recursive:true});
+}
+let abT=null;
+function autoBackup(){
+ if(!isNative())return;
+ clearTimeout(abT);abT=setTimeout(()=>{writeDoc('wiladat-last.json').catch(()=>{})},800);
+}
+async function exportData(){
+ const name='wiladat-'+today()+'.json';
+ if(isNative()){
+  try{await writeDoc(name);await writeDoc('wiladat-last.json');alert('تم الحفظ في الملفات:\nDocuments / Wiladat / '+name)}
+  catch(e){alert('تعذر الحفظ: '+(e&&e.message?e.message:e))}
+  return;
+ }
+ const b=new Blob([JSON.stringify({births:data,moves:moves})],{type:'application/json'}),a=document.createElement('a');
+ a.href=URL.createObjectURL(b);a.download=name;a.click();
+}
+function importData(el){
+ const f=el.files[0];if(!f)return;
+ const rd=new FileReader();
+ rd.onload=()=>{try{const d=JSON.parse(rd.result);const b=Array.isArray(d)?d:d.births;if(!Array.isArray(b))throw 0;if(confirm('استبدال البيانات الحالية بالنسخة؟')){data=b;save();if(!Array.isArray(d)&&Array.isArray(d.moves)){moves=d.moves;saveM()}render()}}catch(e){alert('ملف غير صالح')}el.value=''};
+ rd.readAsText(f);
+}
+render();
+</script>
+</body>
+</html>
