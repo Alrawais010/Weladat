@@ -293,19 +293,22 @@ function saveForm(){
 }
 function delRec(){if(!confirm('حذف هذه الولادة نهائيًا؟'))return;data=data.filter(x=>x.id!==form.id);save();closeForm();render()}
 const isNative=()=>{const C=window.Capacitor;return !!(C&&C.isNativePlatform&&C.isNativePlatform())};
+const iid=(()=>{try{let v=localStorage.getItem('wiladat_iid');if(!v){v=Math.random().toString(36).slice(2,6);localStorage.setItem('wiladat_iid',v)}return v}catch(e){return'x'}})();
 async function writeDoc(name){
- const F=window.Capacitor.Plugins.Filesystem;
- await F.writeFile({path:'Wiladat/'+name,data:JSON.stringify({births:data,moves:moves}),directory:'DOCUMENTS',encoding:'utf8',recursive:true});
+ const F=window.Capacitor.Plugins.Filesystem,body=JSON.stringify({births:data,moves:moves});
+ const w=n=>F.writeFile({path:'Wiladat/'+n,data:body,directory:'DOCUMENTS',encoding:'utf8',recursive:true});
+ try{await w(name);return name}
+ catch(e){const alt=name.replace('.json','-'+iid+Date.now().toString(36).slice(-4)+'.json');await w(alt);return alt}
 }
 let abT=null;
 function autoBackup(){
  if(!isNative())return;
- clearTimeout(abT);abT=setTimeout(()=>{writeDoc('wiladat-last.json').catch(()=>{})},800);
+ clearTimeout(abT);abT=setTimeout(()=>{writeDoc('wiladat-last-'+iid+'.json').catch(()=>{})},800);
 }
 async function exportData(){
  const name='wiladat-'+today()+'.json';
  if(isNative()){
-  try{await writeDoc(name);await writeDoc('wiladat-last.json');alert('تم الحفظ في الملفات:\nDocuments / Wiladat / '+name)}
+  try{const f=await writeDoc(name);await writeDoc('wiladat-last-'+iid+'.json');alert('تم الحفظ في الملفات:\nDocuments / Wiladat / '+f)}
   catch(e){alert('تعذر الحفظ: '+(e&&e.message?e.message:e))}
   return;
  }
